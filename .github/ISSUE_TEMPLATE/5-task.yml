@@ -1,7 +1,13 @@
 name: Task
-description: Planned work, such as MVP implementation or technical work that does not change requirements.
+description: Technical work that does not change requirements, such as setup, infrastructure, or upgrades.
 type: Task
 body:
+  - type: markdown
+    attributes:
+      value: |
+        Use **Task** only for technical work that does not change requirements, such as setup, infrastructure, refactoring, or upgrades.
+        Requirements, including finalized MVP requirements from the PRD, use **Enhancement**.
+
   - type: textarea
     id: work
     attributes:
