@@ -58,6 +58,14 @@ Work in progress lives on the issue's branch, so it can continue on any machine.
 
 TypeScript throughout: Cloudflare Workers, Durable Objects, Queues, Workflows, and R2 on the backend, and React PWAs on the frontend.
 
+## Data model naming
+
+- Name each domain model in UPPER_SNAKE_CASE, the same as its ENTITY_TYPE in the DO instance registry, for example `MERCHANT` or `ORDER_ITEM`.
+- Name fields in snake_case, for example `merchant_id`.
+- Name status and other enum values in camelCase, for example `waitingPayment`.
+- Name a field that holds another row's id `<model>_id`. Add a prefix that names the role when a model is referenced for a specific role or more than once.
+- End money fields in `_jod` or `_idr`, and timestamps in `_at`. Timestamps are stored in UTC.
+
 ## Maintaining the agent setup
 
 - ECC 2.2.3 was installed with `npx ecc-universal@2.2.3 install --target claude-project --profile core --enable-hooks`. After every ECC install or update, run these two scripts in order:
