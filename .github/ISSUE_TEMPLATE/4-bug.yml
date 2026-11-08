@@ -1,0 +1,53 @@
+name: Bug
+description: The app does not behave as the living documentation says.
+type: Bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use **Bug** when the app does not behave as the living documentation says.
+        If the documentation does not cover the behavior at all, use **Problem** instead.
+        Fill in the **Related issues** field with the issues of the requirement that is not met.
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What should happen according to the living documentation.
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What happens instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: App (customer, merchant, or ops), device, browser, and the account or order used.
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Screenshots, recordings, or logs.
+    validations:
+      required: false
