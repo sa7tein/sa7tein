@@ -1,0 +1,51 @@
+name: Problem
+description: User behavior that the living documentation does not cover and that conflicts with other requirements.
+type: Problem
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use **Problem** to record user behavior that the living documentation does not cover and that turns out to conflict with other requirements.
+        If the app does not behave as the documentation says, use **Bug** instead.
+        After analysis, a Problem is resolved by a **Changes** or **Enhancement** issue created as its sub-issue, or by a documentation clarification.
+        Fill in the **Related issues** field with the issues of the conflicting requirements, if they exist.
+
+  - type: textarea
+    id: behavior
+    attributes:
+      label: User behavior
+      description: What the user did, and in which app (customer, merchant, or ops).
+    validations:
+      required: true
+
+  - type: textarea
+    id: example
+    attributes:
+      label: Example case
+      description: What happened, step by step. Include order numbers, times, or screenshots if available.
+    validations:
+      required: true
+
+  - type: textarea
+    id: conflict
+    attributes:
+      label: Conflicting requirements
+      description: Which requirements conflict with this behavior, and how.
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact
+      description: Who is affected and how, for example money, user experience, or operations.
+    validations:
+      required: false
+
+  - type: textarea
+    id: workaround
+    attributes:
+      label: Workaround
+      description: How the team handles this case while waiting for a decision.
+    validations:
+      required: false

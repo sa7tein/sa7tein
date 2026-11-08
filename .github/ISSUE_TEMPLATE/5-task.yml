@@ -1,0 +1,22 @@
+name: Task
+description: Planned work, such as MVP implementation or technical work that does not change requirements.
+type: Task
+body:
+  - type: textarea
+    id: work
+    attributes:
+      label: Work
+      description: What needs to be done and the expected result.
+    validations:
+      required: true
+
+  - type: textarea
+    id: done
+    attributes:
+      label: Definition of done
+      description: Conditions that mark this task as done.
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
