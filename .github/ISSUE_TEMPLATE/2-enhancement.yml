@@ -1,12 +1,12 @@
 name: Enhancement
-description: Add a new flow, feature, or logic that is not yet in the living documentation.
+description: Add a new flow, feature, or logic, including finalized MVP requirements from the PRD.
 type: Enhancement
 body:
   - type: markdown
     attributes:
       value: |
-        Use **Enhancement** to add a new flow, feature, or logic.
-        To change something that already exists, use **Changes**.
+        Use **Enhancement** to add a new flow, feature, or logic. Finalized MVP requirements from the PRD are also recorded as Enhancement issues.
+        To change something that already exists, use **Changes**. For technical work that does not change requirements, use **Task**.
         Fill in the **Related issues** field with the existing issues this enhancement builds on or depends on.
 
   - type: textarea
