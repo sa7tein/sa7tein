@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "cloudflare": {
+      "type": "http",
+      "url": "https://mcp.cloudflare.com/mcp"
+    },
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp?client=claude-code-plugin"
+    },
+    "postman": {
+      "type": "http",
+      "url": "https://mcp.postman.com/${POSTMAN_MCP_MODE:-mcp}",
+      "headers": {
+        "X-Source": "claude-code-plugin",
+        "X-Plugin-Version": "2.0.0",
+        "User-Agent": "postman-claude-code-plugin/2.0.0"
+      }
+    }
+  }
+}
