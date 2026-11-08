@@ -1,11 +1,186 @@
 {
   "version": 1,
   "skills": {
+    "ai-readiness": {
+      "source": "Postman-Devrel/postman-claude-code-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/ai-readiness/SKILL.md",
+      "computedHash": "15702859cc1d9af289b3ddd6a09349398e71116ceea0aa72f67e343181a45018",
+      "installMode": "copy"
+    },
+    "api-discovery": {
+      "source": "Postman-Devrel/postman-claude-code-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/api-discovery/SKILL.md",
+      "computedHash": "0c7e95b9ae96c337ae71394efec886cf405db93d89b34cb984d0aba55f3ab9cc",
+      "installMode": "copy"
+    },
+    "api-documentation": {
+      "source": "Postman-Devrel/postman-claude-code-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/api-documentation/SKILL.md",
+      "computedHash": "59eebcd71d3002cca7c02b05e9edb7372310c5b0a8da73f279faaecd32c167cb",
+      "installMode": "copy"
+    },
+    "api-engineer": {
+      "source": "Postman-Devrel/postman-claude-code-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/api-engineer/SKILL.md",
+      "computedHash": "dc9f9580e23979d92b2f81cc1d4e10b5fedbd57b530b78d850b6f35dbbc1a277",
+      "installMode": "copy"
+    },
+    "api-mocking": {
+      "source": "Postman-Devrel/postman-claude-code-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/api-mocking/SKILL.md",
+      "computedHash": "25b4046d7289775167a3c34df1290f3ec17b7a963c7f6e415001c16da5e7612a",
+      "installMode": "copy"
+    },
+    "api-monitoring": {
+      "source": "Postman-Devrel/postman-claude-code-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/api-monitoring/SKILL.md",
+      "computedHash": "00c274e33f428b91c74303a1205b249d8dfa1d41669d84e7cd4136bfc6ef6e94",
+      "installMode": "copy"
+    },
+    "api-testing": {
+      "source": "Postman-Devrel/postman-claude-code-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/api-testing/SKILL.md",
+      "computedHash": "f6cc60b5966ebb6862becfcf99b2a18e8abe0f0449098c8ae35f0ad617317374",
+      "installMode": "copy"
+    },
     "archify": {
       "source": "tt-a1i/archify",
       "sourceType": "github",
       "skillPath": "archify/SKILL.md",
       "computedHash": "e9ef0923cda908886e667eb48e36b29e81d0a7a7b9fe2bc05f3779be271e5119",
+      "installMode": "copy"
+    },
+    "bootstrap": {
+      "source": "Postman-Devrel/postman-claude-code-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/bootstrap/SKILL.md",
+      "computedHash": "833be9bab1670e43ed2b5324db6c8c02e668d38691890dbb3dc227007d0904aa",
+      "installMode": "copy"
+    },
+    "cf-cli": {
+      "source": "cloudflare/skills",
+      "sourceType": "github",
+      "skillPath": "skills/cf-cli/SKILL.md",
+      "computedHash": "439ebbec66d43c5bf28dea7468625c118c136cb810e09a8ef8dcc33184a990b3",
+      "installMode": "copy"
+    },
+    "ci-integration": {
+      "source": "Postman-Devrel/postman-claude-code-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/ci-integration/SKILL.md",
+      "computedHash": "f8edd8cece99b1f3f1cea95cb809951515f5353e21b88ac7638cfb6a26893ed6",
+      "installMode": "copy"
+    },
+    "cloudflare": {
+      "source": "cloudflare/skills",
+      "sourceType": "github",
+      "skillPath": "skills/cloudflare/SKILL.md",
+      "computedHash": "1cce94a0fea413a5d5f9dd18d2a72cd90e925017c791eb6554be14f5bb777576",
+      "installMode": "copy"
+    },
+    "cloudflare-app-bootstrap": {
+      "source": "cloudflare/skills",
+      "sourceType": "github",
+      "skillPath": "skills/cloudflare-app-bootstrap/SKILL.md",
+      "computedHash": "38e694d4285c0220aebab2a90fa154da88de858020c050fa4f5c8209ad7d88b8",
+      "installMode": "copy"
+    },
+    "cloudflare-one": {
+      "source": "cloudflare/skills",
+      "sourceType": "github",
+      "skillPath": "skills/cloudflare-one/SKILL.md",
+      "computedHash": "64d636fda0a8711922c4bf7650a3fde098cefc4755983af583d5cea86b64152d",
+      "installMode": "copy"
+    },
+    "collection-schema-v3": {
+      "source": "Postman-Devrel/postman-claude-code-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/collection-schema-v3/SKILL.md",
+      "computedHash": "645b72f40ba8c5695b525a62e34caeda948248ce51d46def773a31925d7e43c4",
+      "installMode": "copy"
+    },
+    "durable-objects": {
+      "source": "cloudflare/skills",
+      "sourceType": "github",
+      "skillPath": "skills/durable-objects/SKILL.md",
+      "computedHash": "55897720109876d5755ced452e069c5b6ef1010736642c937d5db49a6ddbf587",
+      "installMode": "copy"
+    },
+    "flows": {
+      "source": "Postman-Devrel/postman-claude-code-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/flows/SKILL.md",
+      "computedHash": "202d7b82066d9055f6c6ee8fa72bd850cb512e266e17bae9bb3253063d45ad58",
+      "installMode": "copy"
+    },
+    "frameworks-on-cloudflare": {
+      "source": "cloudflare/skills",
+      "sourceType": "github",
+      "skillPath": "skills/frameworks-on-cloudflare/SKILL.md",
+      "computedHash": "209eb36b1822641c17e5cd90b3e86367c4b3ae375fec356700a0aabbd7d4dff5",
+      "installMode": "copy"
+    },
+    "performance-testing": {
+      "source": "Postman-Devrel/postman-claude-code-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/performance-testing/SKILL.md",
+      "computedHash": "fbb94538a7c47602e0398b452040d6296715b1569681d3b2299c8104f5fbda91",
+      "installMode": "copy"
+    },
+    "postman-mcp-server": {
+      "source": "Postman-Devrel/postman-claude-code-plugin",
+      "sourceType": "github",
+      "skillPath": "skills/postman-mcp-server/SKILL.md",
+      "computedHash": "ae848c23acea98e89cbdcbcfc4e6d0fb6acc4beee31bf1f4ba714a44d3a6c8e2",
+      "installMode": "copy"
+    },
+    "turnstile-spin": {
+      "source": "cloudflare/skills",
+      "sourceType": "github",
+      "skillPath": "skills/turnstile-spin/SKILL.md",
+      "computedHash": "a56d89eaa1c6de560e101c486170fd77c9317b02158a1fc3c77d2f8cac479922",
+      "installMode": "copy"
+    },
+    "web-perf": {
+      "source": "cloudflare/skills",
+      "sourceType": "github",
+      "skillPath": "skills/web-perf/SKILL.md",
+      "computedHash": "fa0a7b78991034a3840eac6d5f07c72eacc73fd68898e0238fbb83b7b4d4d884",
+      "installMode": "copy"
+    },
+    "workers-best-practices": {
+      "source": "cloudflare/skills",
+      "sourceType": "github",
+      "skillPath": "skills/workers-best-practices/SKILL.md",
+      "computedHash": "b6252e1aa7c41d1fbec7f064684deb9bd79866c2b6f3e18deee6d7a0c673f3f3",
+      "installMode": "copy"
+    },
+    "workers-development": {
+      "source": "cloudflare/skills",
+      "sourceType": "github",
+      "skillPath": "skills/workers-development/SKILL.md",
+      "computedHash": "0d94d2a55e633cd0d47525178dc5e63660e1a20de73b065863e48ce84c9c5bf0",
+      "installMode": "copy"
+    },
+    "workers-profiling": {
+      "source": "cloudflare/skills",
+      "sourceType": "github",
+      "skillPath": "skills/workers-profiling/SKILL.md",
+      "computedHash": "1b92c018275aaa2404565b7ec3819b7ae3424949991980b5ed1e01551f7f6cd7",
+      "installMode": "copy"
+    },
+    "wrangler": {
+      "source": "cloudflare/skills",
+      "sourceType": "github",
+      "skillPath": "skills/wrangler/SKILL.md",
+      "computedHash": "6e431b3ca4d91547e3d1a224bfd5e725e54843cff3537aca48ea455a81bf7e88",
       "installMode": "copy"
     }
   }
