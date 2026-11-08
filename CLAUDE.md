@@ -34,5 +34,8 @@ TypeScript throughout: Cloudflare Workers, Durable Objects, Queues, Workflows, a
 
 ## Maintaining the agent setup
 
-- ECC 2.2.3 was installed with `npx ecc-universal@2.2.3 install --target claude-project --profile core --enable-hooks`. After every ECC install or update, run `node .claude/tools/ecc-portable-hooks.mjs`. The installer writes its own machine's path into the hook commands, and this script replaces it with the project directory so the hooks work on every machine and in cloud sessions.
+- ECC 2.2.3 was installed with `npx ecc-universal@2.2.3 install --target claude-project --profile core --enable-hooks`. After every ECC install or update, run these two scripts in order:
+  1. `node .claude/tools/ecc-prune.mjs` removes the ECC resources sa7tein doesn't use, such as the agents, commands, and rules for other languages. Edit its lists to keep or remove more.
+  2. `node .claude/tools/ecc-portable-hooks.mjs` replaces the installer's machine-specific path in the hook commands with the project directory, so the hooks work on every machine and in cloud sessions.
+- Because of these two scripts, `ecc doctor` reports missing and drifted managed files. That is expected.
 - The other skills, including the extra ECC skills, are tracked in `skills-lock.json`. Update them with `npx skills update`.
