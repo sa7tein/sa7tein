@@ -4,12 +4,29 @@ Code and living documentation for sa7tein. Everything in this repository is writ
 
 ## Where requirements come from
 
-- Every piece of work starts from a GitHub issue. Requirements come from the issue and from the PRD and ERD, which live in Claude Docs outside this repository.
+- Every piece of work starts from a GitHub issue, and the issue is the only source of requirements. The MVP issues are split from a PRD that is retired once the split is done.
+- There is no ERD to copy. Derive the data model from the issues during the Design stage.
 - Don't create PRD, user story, epic, sprint, or task-list files. ECC's `/plan-prd`, `/prp-prd`, `story-lifecycle`, and `/epic-*` tools aren't used here. Put plans in the issue or the pull request.
 - The backlog uses GitHub issue types and issue fields, not labels:
-  - **Types:** Enhancement (new behavior, including MVP requirements from the PRD), Changes (a change to existing behavior), Problem (user behavior the docs don't cover that conflicts with them), Bug (the app doesn't match the docs), Task (technical work only).
+  - **Types:** Enhancement (new behavior, including the MVP requirements), Changes (a change to existing behavior), Problem (user behavior the docs don't cover that conflicts with them), Bug (the app doesn't match the docs), Task (technical work only).
   - **Fields:** Sequence (work order), Stage, Area, Effort, Related issues, Start date, Target date, Frequency.
-- The MVP follows waterfall stages (Requirement, Design, Development, Testing, Release), tracked in the Stage field of each issue.
+
+## How an issue moves
+
+Every issue goes through five stages, recorded in its Stage field: Requirement, Design, Development, Testing, and Release. Its Status on the project board follows the stage.
+
+| Status | Stages |
+|---|---|
+| Todo | Requirement |
+| In Progress | Design, Development, Testing |
+| Done | Release |
+
+- Only one issue is In Progress at a time. Start the next issue, in Sequence order, only after the current one reaches Release or is dropped.
+- The MVP issues were written together at the Requirement stage. From Design on, issues go through the stages one at a time, during the MVP and after it.
+- **Design:** create the issue's branch and a draft pull request. Commit the design (living documentation and Archify diagrams) to that branch and review it through the branch's Cloudflare preview of the docs. It merges together with the code.
+- **Development and Testing** follow ECC (see the next section). During Testing, the branch is deployed to staging, a separate Cloudflare account that uses sandbox credentials and Meta's WhatsApp test number.
+- **Release:** once testing passes, merge the pull request into `main` and deploy `main` to production on sa7tein's Cloudflare account. The issue is then at Release and Done. This holds during the MVP too, so production is deployed after every merged issue. Deploys run through GitHub Actions, and production deploys need the owner's approval.
+- **Dropped issues:** close them as "Not planned" and leave the Stage as it was. If the issue has a branch, close its pull request without merging and delete the branch. If that branch is deployed to staging, redeploy staging from `main`.
 
 ## How work is done
 
@@ -27,6 +44,15 @@ ECC defines the engineering workflow for the Development and Testing stages. Its
 - Pull requests use `.github/pull_request_template.md` and close their issue with `Closes #<number>`.
 - Keep the Co-Authored-By trailer on commits made with Claude.
 - Make diagrams with the `archify` skill. Put other technical documentation, such as architecture decision records, in `docs/`.
+
+## Continuing work on another machine
+
+Work in progress lives on the issue's branch, so it can continue on any machine.
+
+- While an issue is In Progress, keep a handoff note at `.claude/handoff.md` on its branch: the issue, the stage, what's done, the next step, decisions made with the owner, and open questions.
+- At every stopping point, such as the end of a session or when the owner asks, update the note, commit it with the work, and push the branch, even if the work is unfinished.
+- At the start of a session, pull the branch of the In Progress issue and read its `.claude/handoff.md` before doing anything else. To find the branch, look for the open pull request that closes that issue.
+- Delete the note before the pull request leaves draft. Anything still worth keeping goes into the issue, the pull request, or the docs.
 
 ## Stack
 

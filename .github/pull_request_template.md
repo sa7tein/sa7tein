@@ -19,5 +19,9 @@ Closes #
 - [ ] Acceptance criteria in the issue are tested
 - [ ] How to test is described in the notes for reviewers
 
+## Ready for review
+
+- [ ] The handoff note (`.claude/handoff.md`) is deleted
+
 ## Notes for reviewers
 
