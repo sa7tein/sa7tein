@@ -27,7 +27,7 @@ Business rules that one issue sets and every other feature must follow. Each rul
 ## Money and disputes
 
 - Prices are in JOD. Online payments are in IDR through QRIS only, and the other method is cash on delivery (#38, #39, #52).
-- An amount billed in IDR is rounded up to the hundred, and a payout is the JOD amount × the locked exchange rate, rounded down to the whole rupiah. Aplikator promo subsidies and the refund of a program's remaining budget use the daily exchange rate in force when they are paid instead (#38, #43, #55, #56).
+- An amount billed in IDR is rounded up to the hundred, and a payout is the JOD amount × the locked exchange rate, rounded down to the whole rupiah (#38, #43).
 - Online order money stays in the aplikator balance at the payment gateway until a payout or a refund. Both go out at the daily payout time, once the payment gateway has settled the money (#43, #44).
 - Compensation and punishment are non-monetary only, so no money is taken back after a payout (#59).
 - Merchants and customers must follow every User Agreement rule and can't opt out of any. A new version applies on its effective date, without accepting it again (#20).
