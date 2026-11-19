@@ -14,7 +14,7 @@ Business rules that one issue sets and every other feature must follow. Each rul
 - Ops sign in only through Cloudflare Access with an ops account, never with a WhatsApp account (#17).
 - Every merchant feature is gated by a merchant staff permission, so a new merchant feature names its permission. The owner always has every permission, and only the owner manages staff and changes the bank account (#26).
 - Every change of business state that another party can observe is a realtime event to every client entitled to it, using the audiences in #15: the merchant team by permission, the related customer, and viewing customers. An event or notification reaches an account for all its roles, whatever role is active (#15, #22).
-- Notifications aren't stored. For now, the inbox holds only User Agreement changes (#15, #20).
+- Notifications aren't stored. For now, the inbox holds only User Agreement changes (#15, #66).
 
 ## Orders
 
@@ -29,5 +29,5 @@ Business rules that one issue sets and every other feature must follow. Each rul
 - Prices are in JOD. Online payments are in IDR through QRIS only, and the other method is cash on delivery (#38, #39, #52).
 - An amount billed in IDR is rounded up to the hundred, and a payout is the JOD amount × the locked exchange rate, rounded down to the whole rupiah (#38, #43).
 - Online order money stays in the aplikator balance at the payment gateway until a payout or a refund. Both go out at the daily payout time, once the payment gateway has settled the money (#43, #44).
-- Compensation and punishment are non-monetary only, so no money is taken back after a payout (#20).
+- Compensation and punishment are non-monetary only, so no money is taken back after a payout (#59).
 - Merchants and customers must follow every User Agreement rule and can't opt out of any. A new version applies on its effective date, without accepting it again (#20).
