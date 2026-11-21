@@ -25,7 +25,7 @@ These rules hold for every issue, in Design, Development, and Testing. Change a 
   - The Workers only read Durable Object data, through RPC. Every write, including writing application configuration to Workers KV, runs as a Workflow started from a Queue, and the Workflow changes each Durable Object through RPC.
   - A write command from a client gets only an acknowledgment: accepted, or rejected by input validation. Its result always arrives as an event over WebSocket.
   - Request-response is only for reads: a screen's first snapshot, and the resync after the WebSocket connects again.
-  - Nothing polls. External services report changes through webhooks. A status check right after an event and reading the bank statement at set times aren't polling (#39, #43).
+  - Nothing polls. External services report changes through webhooks. A status check right after an event, and the status checks and bank statement read of the daily payout run at its set time, aren't polling (#39, #43).
   - The UI changes state only on events. After an accepted command, it shows a pending state, with no optimistic update.
 - A row's schedule runs on its Durable Object alarm. A global schedule whose time ops sets, such as the daily exchange rate update and the daily payout, runs as a Workflow that waits until that time, and is scheduled again when ops changes it. A time that ops or users can change never uses a Cron Trigger (#13).
 - Every Workflow step that changes a value with a balance, a quota, or a limit uses an idempotency key: money, sa7tein poin, order quota, a program's budget, usage limits and exclusive promo uses, and stock. Every other step is also safe to retry (#14).
