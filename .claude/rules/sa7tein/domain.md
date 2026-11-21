@@ -18,7 +18,7 @@ Business rules that one issue sets and every other feature must follow. Each rul
 
 ## Orders
 
-- Once the merchant accepts an order, neither the customer nor the merchant can cancel it, and the merchant must finish it. The customer can cancel only before the merchant accepts (#41, #44).
+- Once the merchant accepts an order, neither the customer nor the merchant can cancel it, and the merchant must finish it. The customer can cancel only a pending order, before the merchant accepts. An order in waitingPayment can't be canceled, and fails when its QR expires (#39, #41, #44).
 - An online order reaches the merchant only after its payment succeeds (#39).
 - An order keeps what was in force when it was placed: the User Agreement version, its items' prices, and its IDR amount at the locked exchange rate. Later changes don't change placed orders (#20, #38, #39).
 - Order items always refer to a variant, and the names in order history and invoices come from the variant (#32).
@@ -26,8 +26,8 @@ Business rules that one issue sets and every other feature must follow. Each rul
 
 ## Money and disputes
 
-- Prices are in JOD. Online payments are in IDR through QRIS only, and the other method is cash on delivery (#38, #39, #52).
+- Prices are in JOD. Online payments are in IDR through QRIS only, and the other method is cash on delivery (#38, #39, #52). A QRIS payment is at most Rp10,000,000, so a larger order can't use QRIS, and an aplikator program's payment stays under it (#39, #56).
 - An amount billed in IDR is rounded up to the hundred, and a payout is the JOD amount × the locked exchange rate, rounded down to the whole rupiah (#38, #43).
-- Online order money stays in the aplikator balance at the payment gateway until a payout or a refund. Both go out at the daily payout time, once the payment gateway has settled the money (#43, #44).
+- BCA settles online order money into the aplikator balance, sa7tein's bank account, where it stays until a payout or a refund. Both are transferred from that account through the bank API at the daily payout time, once the bank statement shows the money is settled (#43, #44).
 - Compensation and punishment are non-monetary only, so no money is taken back after a payout (#59).
 - Merchants and customers must follow every User Agreement rule and can't opt out of any. A new version applies on its effective date, without accepting it again (#20).

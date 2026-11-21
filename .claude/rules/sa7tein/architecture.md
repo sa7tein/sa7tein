@@ -4,7 +4,7 @@ These rules hold for every issue, in Design, Development, and Testing. Change a 
 
 ## Platform
 
-- Everything runs on Cloudflare. External services are used only for what Cloudflare doesn't provide: payments, maps, WhatsApp, and exchange rates (#13).
+- Everything runs on Cloudflare. External services are used only for what Cloudflare doesn't provide: payments and bank transfers (the BCA bank API), maps, WhatsApp, and exchange rates (#13).
 - Reach every external service through an adapter, so it can be replaced, and swapped for a test double in tests.
 - One Worker serves the customer and merchant app, and a separate Worker serves the ops app. Both reach the same Durable Objects, Workflows, and Queues. The ops app is behind Cloudflare Access (#13, #17).
 - The Worker contract is the same for every client, and every WebSocket message carries a contract version, so the PWA and a native app can run side by side (#13, #15).
@@ -25,13 +25,13 @@ These rules hold for every issue, in Design, Development, and Testing. Change a 
   - The Workers only read Durable Object data, through RPC. Every write, including writing application configuration to Workers KV, runs as a Workflow started from a Queue, and the Workflow changes each Durable Object through RPC.
   - A write command from a client gets only an acknowledgment: accepted, or rejected by input validation. Its result always arrives as an event over WebSocket.
   - Request-response is only for reads: a screen's first snapshot, and the resync after the WebSocket connects again.
-  - Nothing polls. External services report changes through webhooks.
+  - Nothing polls. External services report changes through webhooks. A status check right after an event and reading the bank statement at set times aren't polling (#39, #43).
   - The UI changes state only on events. After an accepted command, it shows a pending state, with no optimistic update.
 - A row's schedule runs on its Durable Object alarm. A global schedule whose time ops sets, such as the daily exchange rate update and the daily payout, runs as a Workflow that waits until that time, and is scheduled again when ops changes it. A time that ops or users can change never uses a Cron Trigger (#13).
 - Every Workflow step that changes a value with a balance, a quota, or a limit uses an idempotency key: money, sa7tein poin, order quota, a program's budget, usage limits and exclusive promo uses, and stock. Every other step is also safe to retry (#14).
 
 ## Money and time
 
-- An append-only audit ledger records every money movement at the payment gateway, and is reconciled daily with the payment gateway's report. It is a record, not a balance, and only ops sees it (#43).
+- An append-only audit ledger records every money movement of payments and of sa7tein's bank account. The system reconciles it automatically with the bank statement it reads through the bank API, which also shows which payments are settled. It is a record, not a balance, and only ops sees it (#43).
 - JOD has 3 decimals and IDR is a whole number. Money never uses floating point (#13).
 - Times are shown in the Asia/Amman time zone (#13).
