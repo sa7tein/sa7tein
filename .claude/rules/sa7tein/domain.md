@@ -26,7 +26,7 @@ Business rules that one issue sets and every other feature must follow. Each rul
 
 ## Money and disputes
 
-- Prices are in JOD. Online payments are in IDR through QRIS only, and the other method is cash on delivery (#38, #39, #52). A QRIS payment is at most Rp10,000,000, so a larger order can't use QRIS, and an aplikator program's payment stays under it (#39, #56).
+- Prices are in JOD. Online payments are in IDR through QRIS only, and the other method is cash on delivery (#38, #39, #52). A QRIS payment is at most Rp10,000,000, including the transaction fee, so a larger order can't use QRIS, and package or quota purchases and an aplikator program's payment stay under it (#39, #50, #56).
 - An amount billed in IDR is rounded up to the hundred, and a payout is the JOD amount × the locked exchange rate, rounded down to the whole rupiah (#38, #43).
 - BCA settles online order money into the aplikator balance, sa7tein's bank account, where it stays until a payout or a refund. Both are transferred from that account through the bank API at the daily payout time, once the bank statement shows the money is settled (#43, #44).
 - Compensation and punishment are non-monetary only, so no money is taken back after a payout (#59).
