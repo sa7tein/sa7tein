@@ -34,4 +34,4 @@ These rules hold for every issue, in Design, Development, and Testing. Change a 
 
 - An append-only audit ledger records every money movement of payments and of sa7tein's bank account. The system reconciles it automatically with the bank statement it reads through the bank API, which also shows which payments are settled. It is a record, not a balance, and only ops sees it (#43).
 - JOD has 3 decimals and IDR is a whole number. Money never uses floating point (#13).
-- Times are shown in the Asia/Amman time zone (#13).
+- Times are shown in the Asia/Amman time zone, unless an issue says otherwise, such as the daily payout time and payout dates in WIB (#13, #19, #43).
