@@ -5,7 +5,7 @@ Business rules that one issue sets and every other feature must follow. Each rul
 ## Data and history
 
 - Every create, update, and delete on any Durable Object field or application configuration key records an activity entry with its actor and per-field change traces, without exception. No feature keeps its own change history (#16).
-- Ops can't read an order's chat or its activity entries after the manual dispute window, unless the order still has an unresolved ticket or incident (#47, #18).
+- Ops can't read an order's chat messages, or the activity entries of those messages, after the manual dispute window, unless the order still has an unresolved ticket or incident (#47, #18).
 - A value that ops can change is an application configuration key, listed in #19, never a constant in code. Each feature issue lists the keys it needs (#13, #19).
 
 ## Accounts, permissions, and audiences

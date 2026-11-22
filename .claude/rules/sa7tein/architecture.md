@@ -15,7 +15,7 @@ These rules hold for every issue, in Design, Development, and Testing. Change a 
 - Durable Objects with SQLite storage are the database. Data is stored through the Durable Object storage's KV async API (#13).
 - One Durable Object class is one domain model, and one instance is one row. No Durable Object class has only one instance forever (#13).
 - Nothing is ever deleted permanently, chat messages included. A delete makes a system archive: hidden from users, but kept with its history (#13, #16).
-- Workers KV holds only single-row application configuration and the DO instance registry. Workers KV has no delete operation, and the registry only supports read and create. Its values aren't copied into Durable Objects, and multi-row configuration lives in Durable Objects (#13).
+- Workers KV holds only single-row application configuration and the DO instance registry. Workers KV has no delete operation, and the registry only supports read and create. Its values aren't stored again in Durable Objects as a second copy of the configuration, though a row may keep the value in force when it was made, such as an order's platform fees and locked exchange rate. Multi-row configuration lives in Durable Objects (#13, #39).
 - Workers KV can take up to 60 seconds to be consistent everywhere, so the owning Durable Object stays the source of truth and validates every action (#13).
 - Files go to R2, and a model keeps only the R2 key (#13).
 
