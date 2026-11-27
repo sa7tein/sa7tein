@@ -7,7 +7,7 @@ Apply these in the Design stage of every issue, together with the architecture r
 Every design, in the living documentation and the Archify diagrams, shows:
 
 - the module ops models it touches, with their access rights and record rules;
-- for every command, its queue, the JSON-2 method it calls in Odoo, and its idempotency key;
+- for every command, its queue, the module ops endpoint it calls, and its idempotency key;
 - the steps that change a value with a balance, a quota, or a limit, with their idempotency keys and the row locks that serialize them;
 - the outbox events, the realtime events with their audiences, and the notifications;
 - the activity entries that each change creates;

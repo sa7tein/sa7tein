@@ -12,14 +12,14 @@ These rules hold for every issue, in Design, Development, and Testing. Change a 
   - **The frontend** is the customer and merchant PWA.
 - **Module IT**, a second Odoo custom module, is the engineering workspace: releases, their documents, and the agents of the BA, DEVSECOPS, and QA roles. It is released on its own.
 - Production and staging each run exactly one Odoo instance, with module ops and module IT installed together (owner decision of 2026-11-27). So a module IT release is deployed like a module ops release, and restoring the database also restores module IT's records.
-- Odoo runs a version with the JSON-2 API, 19.0 or later. Ops and IT users work in Odoo's own web client, which doesn't need to update without a reload.
+- Odoo runs 18.0 Community (owner decision of 2026-11-27). Ops and IT users work in Odoo's own web client, which doesn't need to update without a reload.
 - The contract between the middleware and the apps is the same for every client, and every WebSocket message carries a contract version, so the PWA and a native app can run side by side (#13, #15).
 - Logs, metrics, and alarms use Amazon CloudWatch.
 
 ## Data
 
 - Odoo's PostgreSQL database, on Amazon RDS, is the only store of business data. Its models are module ops models, and only Odoo reads and writes them.
-- The middleware never reads or writes Odoo's database. It calls Odoo through the JSON-2 API with its own integration user, and keeps only what it needs to deliver commands and events, such as connections, queued messages, and idempotency keys.
+- The middleware never reads or writes Odoo's database. It calls only the JSON endpoints that module ops defines, with its own integration user, so an Odoo upgrade doesn't change what the middleware calls. It keeps only what it needs to deliver commands and events, such as connections, queued messages, and idempotency keys.
 - Customers and merchants never get Odoo users. The middleware signs them in (#21) and passes their account to Odoo, and module ops checks what that account may do.
 - Nothing is ever deleted permanently, chat messages included. A delete archives the record: hidden from users, but kept with its history (#16).
 - A value that ops can change is an application configuration key in Odoo, listed in #19, never a constant in code. The middleware gets the values it needs from Odoo, and Odoo validates every action against the current value (#19).
@@ -29,7 +29,7 @@ These rules hold for every issue, in Design, Development, and Testing. Change a 
 ## Writes, events, and schedules
 
 - The apps are fully asynchronous, reactive, and event-driven, with no exceptions (#14, #15):
-  - A write command from an app gets only an acknowledgment from the middleware: accepted, or rejected by input validation. The middleware puts it on an SQS FIFO queue, and a worker sends it to Odoo through JSON-2. Its result always arrives as an event over WebSocket.
+  - A write command from an app gets only an acknowledgment from the middleware: accepted, or rejected by input validation. The middleware puts it on an SQS FIFO queue, and a worker sends it to the module ops endpoint for that command. Its result always arrives as an event over WebSocket.
   - Request-response is only for reads: a screen's first snapshot, and the resync after the WebSocket connects again.
   - Every change of business state that another party can observe is written by Odoo to an outbox, in the same transaction as the change. After commit, a dispatcher sends it to Amazon EventBridge, and the middleware publishes it through AWS AppSync Events to every client entitled to it, using the audiences in #15. A change that isn't committed never sends an event.
   - The UI changes state only on events. After an accepted command, it shows a pending state, with no optimistic update.
@@ -54,7 +54,7 @@ These rules hold for every issue, in Design, Development, and Testing. Change a 
 
 ## Agents
 
-- The agents of the IT roles run outside Odoo's workers, on Amazon Bedrock AgentCore Runtime or ECS, and reach Odoo only through JSON-2, each with its own Odoo user.
+- The agents of the IT roles run outside Odoo's workers, on Amazon Bedrock AgentCore Runtime or ECS, and reach Odoo only through Odoo's external API, each with its own Odoo user: JSON-RPC on 18.0, and JSON-2 after Odoo is upgraded past 18.0, since Odoo deprecated JSON-RPC in 19.0.
 - An agent user can read business models but never create, update, or delete them, and doesn't see personal data fields, because what an agent reads can be sent to its LLM provider. It creates and changes only the module IT records of its role (owner decision of 2026-11-27).
 - Code that an agent writes reaches production only through a pull request that a person approves.
 
