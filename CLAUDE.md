@@ -25,9 +25,9 @@ Every issue goes through five stages, recorded in its Stage field: Requirement, 
 
 - Only one issue is In Progress at a time. Start the next issue, in Sequence order, only after the current one reaches Release or is dropped.
 - The MVP issues were written together at the Requirement stage. From Design on, issues go through the stages one at a time, during the MVP and after it.
-- **Design:** create the issue's branch and a draft pull request. Commit the design (living documentation and Archify diagrams) to that branch and review it through the branch's Cloudflare preview of the docs. It merges together with the code. Sort the issue's rules into rules for this feature and rules other features must follow, and add each rule other features must follow as one line to `.claude/rules/sa7tein/` in the same pull request, pointing to the living doc that explains it.
-- **Development and Testing** follow ECC (see the next section). During Testing, the branch is deployed to staging, a separate Cloudflare account that uses sandbox credentials and Meta's WhatsApp test number.
-- **Release:** once testing passes, merge the pull request into `main` and deploy `main` to production on sa7tein's Cloudflare account. The issue is then at Release and Done. This holds during the MVP too, so production is deployed after every merged issue. Deploys run through GitHub Actions, and production deploys need the owner's approval.
+- **Design:** create the issue's branch and a draft pull request. Commit the design (living documentation and Archify diagrams) to that branch and review it through the branch's preview of the docs. It merges together with the code. Sort the issue's rules into rules for this feature and rules other features must follow, and add each rule other features must follow as one line to `.claude/rules/sa7tein/` in the same pull request, pointing to the living doc that explains it.
+- **Development and Testing** follow ECC (see the next section). During Testing, the branch is deployed to staging, a separate AWS environment with its own Odoo instance, sandbox credentials, and Meta's WhatsApp test number.
+- **Release:** once testing passes, merge the pull request into `main` and deploy `main` to production on AWS, without downtime (see `.claude/rules/sa7tein/architecture.md`). The issue is then at Release and Done. This holds during the MVP too, so production is deployed after every merged issue. Deploys run through AWS CodePipeline, and production deploys need the owner's approval.
 - **Missed requirements:** until an issue reaches Release, its requirements can still change. When a requirement turns out to be missing or wrong, edit the issue once the owner approves, add a comment to the issue that says what changed and why, and note the decision in the handoff note and the pull request. The design and code on the branch then follow the issue. The Stage doesn't move back: before Release it only moves forward, and it doesn't have to match the work at hand.
 - A missed requirement that is a large new need, or that belongs to another feature, gets its own issue instead: edit that feature's issue if it is still at Requirement, or create an Enhancement issue whose Sequence comes right after the current one. A change to an issue that is already at Release is a Changes issue, or a Bug when the app doesn't match the docs.
 - **Dropped issues:** close them as "Not planned" and leave the Stage as it was. If the issue has a branch, close its pull request without merging and delete the branch. If that branch is deployed to staging, redeploy staging from `main`.
@@ -60,15 +60,15 @@ Work in progress lives on the issue's branch, so it can continue on any machine.
 
 ## Stack
 
-TypeScript throughout: Cloudflare Workers, Durable Objects, Queues, Workflows, and R2 on the backend, and React PWAs on the frontend.
+Everything runs on AWS: Odoo Community (Python) for the backend and the engineering workspace, as module ops and module IT; AWS services written in TypeScript for the middleware; and a React PWA for the frontend.
 
 ## Data model naming
 
-- Name each domain model in UPPER_SNAKE_CASE, the same as its ENTITY_TYPE in the DO instance registry, for example `MERCHANT` or `ORDER_ITEM`.
+- Name each Odoo model `sa7tein.<name>`, in lowercase with dots between words, for example `sa7tein.merchant` or `sa7tein.order.item`.
 - Name fields in snake_case, for example `merchant_id`.
-- Name status and other enum values in camelCase, for example `waitingPayment`.
-- Name a field that holds another row's id `<model>_id`. Add a prefix that names the role when a model is referenced for a specific role or more than once.
-- End money fields in `_jod` or `_idr`, and timestamps in `_at`. Timestamps are stored in UTC.
+- Name status and other selection values in camelCase, for example `waitingPayment`.
+- Name a Many2one field `<model>_id`, and a One2many or Many2many field `<model>_ids`. Add a prefix that names the role when a model is referenced for a specific role or more than once.
+- End money fields in `_fils` (JOD, kept in fils) or `_idr`, and timestamps in `_at`. Timestamps are stored in UTC.
 
 ## Maintaining the agent setup
 

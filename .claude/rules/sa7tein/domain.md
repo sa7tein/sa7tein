@@ -4,14 +4,15 @@ Business rules that one issue sets and every other feature must follow. Each rul
 
 ## Data and history
 
-- Every create, update, and delete on any Durable Object field or application configuration key records an activity entry with its actor and per-field change traces, without exception. No feature keeps its own change history (#16).
+- Every create, update, and delete on any field of a module ops model or any application configuration key records an activity entry with its actor and per-field change traces, without exception. No feature keeps its own change history (#16).
 - Ops can't read an order's chat messages, or the activity entries of those messages, after the manual dispute window, unless the order still has an unresolved ticket or incident (#47, #18).
 - A value that ops can change is an application configuration key, listed in #19, never a constant in code. Each feature issue lists the keys it needs (#13, #19).
 
 ## Accounts, permissions, and audiences
 
 - One WhatsApp number is one account, and it logs in only with reverse OTP WhatsApp. An account has at most one customer role and any number of merchant roles, one per merchant (#21, #22).
-- Ops sign in only through Cloudflare Access with an ops account, never with a WhatsApp account (#17).
+- Ops and IT users sign in only to Odoo, with their Odoo user and two-factor authentication, never with a WhatsApp account (#17).
+- Agents of the IT roles read business data without its personal data fields, and never create, update, or delete it. A feature that adds a business model or a personal data field sets that access for the agent users (owner decision of 2026-11-27).
 - Every merchant feature is gated by a merchant staff permission or is only for the owner, so a new merchant feature names its permission or says that only the owner uses it. The owner always has every permission. Of the merchant team, only the owner manages staff, transfers the owner status, changes the bank account, accepts the User Agreement, sees the merchant activity history, and gets rating events (#24, #26, #48, #61).
 - Every change of business state that another party can observe is a realtime event to every client entitled to it, using the audiences in #15: the merchant team by permission, the related customer, and viewing customers. An event or notification reaches an account for all its roles, whatever role is active (#15, #22).
 - Notifications aren't stored. For now, the inbox holds only User Agreement changes (#15, #66).
