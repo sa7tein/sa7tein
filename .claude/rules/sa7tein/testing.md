@@ -9,7 +9,7 @@ On top of the ECC testing rules, every issue's tests cover these rules wherever 
 - A write command returns only an acknowledgment, its result arrives as an event, and the UI shows a pending state until then. An event is sent only after its change is committed.
 - After the WebSocket connects again, the client gets the state it missed, and a client on the previous contract version keeps working during a migration.
 - Commands sent while Odoo pauses wait in their queue and are processed once it is back.
-- A release's database changes work with the previous release's code (expand/contract).
+- A release's database changes work with the previous release's code (expand/contract). The only exception is a move to a new Odoo version: its rehearsal on staging checks that the apps keep serving reads, that every queued command runs once after the move, and that the migration keeps every record and balance.
 - Money keeps its precision and rounding: JOD with 3 decimals, IDR as whole numbers, bills rounded up to the hundred, and payouts rounded down to the rupiah (#38, #43).
 - Times are checked around midnight in Asia/Amman and in UTC, around midnight in WIB for payout dates (#43), and around the daily schedules.
 - Agent users can't create, update, or delete business records, and don't see personal data fields.

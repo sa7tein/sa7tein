@@ -12,7 +12,8 @@ These rules hold for every issue, in Design, Development, and Testing. Change a 
   - **The frontend** is the customer and merchant PWA.
 - **Module IT**, a second Odoo custom module, is the engineering workspace: releases, their documents, and the agents of the BA, DEVSECOPS, and QA roles. It is released on its own.
 - Production and staging each run exactly one Odoo instance, with module ops and module IT installed together (owner decision of 2026-11-27). So a module IT release is deployed like a module ops release, and restoring the database also restores module IT's records.
-- Odoo runs 18.0 Community (owner decision of 2026-11-27). Ops and IT users work in Odoo's own web client, which doesn't need to update without a reload.
+- Odoo runs 18.0 Community, and moves only to the next even version, when Odoo's standard support for the running version ends: to 20.0 when support for 18.0 ends, planned for September 2027 (owner decisions of 2026-11-27).
+- Ops and IT users work in Odoo's own web client, which doesn't need to update without a reload.
 - The contract between the middleware and the apps is the same for every client, and every WebSocket message carries a contract version, so the PWA and a native app can run side by side (#13, #15).
 - Logs, metrics, and alarms use Amazon CloudWatch.
 
@@ -46,6 +47,8 @@ These rules hold for every issue, in Design, Development, and Testing. Change a 
   - The middleware and Odoo are deployed blue/green on Amazon ECS: the new version starts next to the old one, traffic moves once it is healthy, and CloudWatch alarms move it back automatically.
   - Odoo's database changes follow expand/contract: a release only adds models, fields, and columns, so the previous release keeps working on the same database. Removing or renaming what the previous release uses waits for a later release.
   - Odoo's module upgrade runs as its own task before traffic moves, after a database snapshot and with the previous release's scheduled actions stopped.
+  - A move to a new Odoo version can't follow expand/contract, so it runs as a switch over: Odoo stops taking writes while commands wait in their queue, the running version keeps serving reads, and traffic moves once the new version has migrated a copy of the database and filestore and is healthy. Traffic can move back only until the new version takes its first write.
+  - Odoo's upgrade service is only for Enterprise, so the database is migrated with OCA's OpenUpgrade, which moves one version at a time: 18.0 goes through 19.0 to 20.0. Module ops and module IT therefore depend only on standard Odoo modules that OpenUpgrade migrates, and bring their own migrations. The move is rehearsed on staging well before the day it is due.
   - The database is RDS for PostgreSQL Multi-AZ behind RDS Proxy, and engine upgrades use RDS Blue/Green Deployments.
   - While Odoo pauses, commands wait in their queue, and the apps show them as pending.
 - Rollback runs from AWS, never from Odoo. The previous release keeps running until the bake time ends, so moving traffic back is instant. Because of expand/contract, rolling back code needs no database change, and a snapshot is restored only when a migration damaged data.
@@ -54,7 +57,7 @@ These rules hold for every issue, in Design, Development, and Testing. Change a 
 
 ## Agents
 
-- The agents of the IT roles run outside Odoo's workers, on Amazon Bedrock AgentCore Runtime or ECS, and reach Odoo only through Odoo's external API, each with its own Odoo user: JSON-RPC on 18.0, and JSON-2 after Odoo is upgraded past 18.0, since Odoo deprecated JSON-RPC in 19.0.
+- The agents of the IT roles run outside Odoo's workers, on Amazon Bedrock AgentCore Runtime or ECS, and reach Odoo only through Odoo's external API, each with its own Odoo user: JSON-RPC on 18.0, and JSON-2 from 20.0 on, since Odoo deprecated JSON-RPC in 19.0.
 - An agent user can read business models but never create, update, or delete them, and doesn't see personal data fields, because what an agent reads can be sent to its LLM provider. It creates and changes only the module IT records of its role (owner decision of 2026-11-27).
 - Code that an agent writes reaches production only through a pull request that a person approves.
 
